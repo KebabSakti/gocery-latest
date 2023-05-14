@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import http from "http";
 import { FirebaseAdminService } from "./common/helper/firebase_service";
+import customerAuth from "./view/v1/customer/customer_auth";
 
 const app = express();
 const server = http.createServer(app);
@@ -24,8 +25,8 @@ app.get("/", async (req, res) => {
 //route middleware
 // app.use("/api/v1/customer/app", customerAuthMiddleware);
 
-// //customer route
-// app.use("/api/v1/customer/cities", customerCityApi);
+//customer
+app.use("/api/v1/customer/auth", customerAuth);
 
 //route not found 404
 app.use("*", (_, res) => res.status(404).json("Route path not found"));
