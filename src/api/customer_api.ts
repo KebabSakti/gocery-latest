@@ -39,3 +39,5 @@ class CustomerApi {
       });
   }
 }
+
+export { CustomerApi };

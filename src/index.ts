@@ -4,6 +4,7 @@ import express from "express";
 import http from "http";
 import { FirebaseAdminService } from "./common/helper/firebase_service";
 import customerAuth from "./view/v1/customer/customer_auth";
+import customerAuthMiddleware from "./view/v1/customer/customer_auth_middleware";
 
 const app = express();
 const server = http.createServer(app);
@@ -22,10 +23,8 @@ app.get("/", async (req, res) => {
   res.json("SERVER UPPP!!");
 });
 
-//route middleware
-// app.use("/api/v1/customer/app", customerAuthMiddleware);
-
 //customer
+app.use("/api/v1/customer/app", customerAuthMiddleware);
 app.use("/api/v1/customer/auth", customerAuth);
 
 //route not found 404
