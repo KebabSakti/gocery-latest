@@ -17,10 +17,10 @@ router.post("/", async (req: Request, res: Response) => {
       throw new BadRequest("Auth token not found");
     }
 
-    const customer = await authController.validate(option.token);
-    req.app.locals.customer = customer;
+    const auth = await authController.validate(option.token);
+    req.app.locals.customer = auth.customer;
 
-    res.end();
+    res.json({ token: auth.token });
   } catch (error: any) {
     new ErrorHandler(res, error);
   }

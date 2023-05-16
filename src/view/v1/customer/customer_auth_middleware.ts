@@ -13,7 +13,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
     }
 
     const token = bearerHeader.split(" ")[1];
-    const customer = await authController.validate(token);
+    const customer = await authController.verify(token);
     req.app.locals.customer = customer;
 
     next();
