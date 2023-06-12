@@ -1,33 +1,38 @@
-import { CustomerApi } from "../../api/customer_api";
-import { FirebaseAuth } from "../../api/firebase_auth";
-import { JwtAuth } from "../../api/jwt_auth";
+import { CustomerApi } from "../../api/customer/customer_api";
+import { FirebaseAuthApi } from "../../api/customer/firebase_auth_api";
+import { JwtAuthApi } from "../../api/jwt_auth_api";
 import { Unauthorized } from "../../common/helper/failure";
 import { AuthModel } from "../../model/auth_model";
 import { CustomerModel } from "../../model/customer_model";
 import { JwtModel } from "../../model/jwt_model";
 
 class CustomerAuthController {
-  private firebaseAuth = new FirebaseAuth();
+  private firebaseAuthApi = new FirebaseAuthApi();
   private customerApi = new CustomerApi();
-  private jwtAuth = new JwtAuth();
+  private jwtAuthApi = new JwtAuthApi();
 
   async validate(token: string): Promise<AuthModel> {
-    const firebaseUser = await this.firebaseAuth.verify(token);
+    let validatedUser: CustomerModel;
+
+    const firebaseUser = await this.firebaseAuthApi.verify(token);
     const user = await this.customerApi.show(firebaseUser.id!);
 
     if (user == undefined) {
       await this.customerApi.upsert(firebaseUser);
+      validatedUser = firebaseUser;
+    } else {
+      validatedUser = user;
     }
 
     const jwtModel: JwtModel = {
-      id: user!.id,
+      id: validatedUser!.id,
       level: "customer",
     };
 
-    const jwtToken: string = this.jwtAuth.sign(jwtModel);
+    const jwtToken: string = this.jwtAuthApi.sign(jwtModel);
 
     const auth: AuthModel = {
-      customer: user,
+      customer: validatedUser,
       token: jwtToken,
     };
 
@@ -35,7 +40,7 @@ class CustomerAuthController {
   }
 
   async verify(token: string): Promise<CustomerModel> {
-    const jwtModel = this.jwtAuth.verify(token);
+    const jwtModel = this.jwtAuthApi.verify(token);
     const customer = await this.customerApi.show(jwtModel.id!);
 
     if (customer == undefined) {

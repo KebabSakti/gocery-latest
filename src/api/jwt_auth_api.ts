@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { JwtModel } from "../model/jwt_model";
 
-class JwtAuth {
+class JwtAuthApi {
   sign(jwtModel: JwtModel): string {
     const token = jwt.sign(jwtModel, process.env.JWT_SECRET!, {
       expiresIn: "1 year",
@@ -22,4 +22,4 @@ class JwtAuth {
   }
 }
 
-export { JwtAuth };
+export { JwtAuthApi };

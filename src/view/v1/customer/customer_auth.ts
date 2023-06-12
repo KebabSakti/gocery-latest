@@ -14,7 +14,7 @@ router.post("/", async (req: Request, res: Response) => {
     const { error } = schema.validate(option);
 
     if (error) {
-      throw new BadRequest("Auth token not found");
+      throw new BadRequest("Auth token not valid");
     }
 
     const auth = await authController.validate(option.token);

@@ -1,16 +1,15 @@
-import { DateTimeService } from "../common/helper/date_time_service";
-import { DbService } from "../common/helper/db_service";
-import { CustomerModel } from "../model/customer_model";
+import { DbService } from "../../common/helper/db_service";
+import { Utility } from "../../common/helper/utility";
+import { CustomerModel } from "../../model/customer_model";
 
 class CustomerApi {
-  private db = new DbService();
+  private db = DbService.instance();
 
   async show(customerId: string): Promise<CustomerModel | undefined> {
     let results: CustomerModel | undefined;
 
-    const query = await this.db
-      .instance()<CustomerModel>("customers")
-      .select("email", "gender", "name", "phone", "picture", "point")
+    const query = await this.db<CustomerModel>("customers")
+      .select("id", "email", "name", "phone", "image", "point", "fcm", "point")
       .where("id", customerId)
       .where("active", true)
       .first();
@@ -23,16 +22,15 @@ class CustomerApi {
   }
 
   async upsert(customer: CustomerModel): Promise<void> {
-    const now = DateTimeService.nowSqlTimestamp();
+    const now = Utility.nowSqlTimestamp();
 
-    await this.db
-      .instance()<CustomerModel>("customers")
+    await this.db<CustomerModel>("customers")
       .insert({
         ...customer,
         created: now,
         updated: now,
       })
-      .onConflict("id")
+      .onConflict()
       .merge({
         ...customer,
         updated: now,

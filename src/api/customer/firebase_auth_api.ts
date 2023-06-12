@@ -1,7 +1,7 @@
 import admin from "firebase-admin";
-import { CustomerModel } from "../model/customer_model";
+import { CustomerModel } from "../../model/customer_model";
 
-class FirebaseAuth {
+class FirebaseAuthApi {
   async verify(token: string): Promise<CustomerModel> {
     const decodedIdToken = await admin.auth().verifyIdToken(token);
     const firebaseUser = await admin.auth().getUser(decodedIdToken.uid);
@@ -18,4 +18,4 @@ class FirebaseAuth {
   }
 }
 
-export { FirebaseAuth };
+export { FirebaseAuthApi };

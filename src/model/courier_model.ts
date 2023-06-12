@@ -1,14 +1,15 @@
-interface CustomerModel {
+interface CourierModel {
   id?: string;
+  password?: string;
   name?: string;
   email?: string;
   phone?: string;
   image?: string;
   fcm?: string;
-  point?: Number;
+  status?: string;
   active?: boolean;
   created?: string;
   updated?: string;
 }
 
-export { CustomerModel };
+export { CourierModel };

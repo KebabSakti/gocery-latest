@@ -1,9 +1,10 @@
 import knex, { Knex } from "knex";
 
 class DbService {
-  instance(): Knex {
+  static instance(): Knex {
     const i = knex({
       client: "mysql",
+      pool: { min: 0, max: 20 },
       connection: {
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
