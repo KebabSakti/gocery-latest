@@ -1,5 +1,5 @@
-import { CategoryApi } from "../../api/customer/category_api";
-import { CategoryModel } from "../../model/category_model";
+import { CategoryApi } from "../api/category_api";
+import { CategoryModel } from "../model/category_model";
 
 class CategoryController {
   private categoryApi = new CategoryApi();

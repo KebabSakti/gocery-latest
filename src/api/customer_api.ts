@@ -1,6 +1,6 @@
-import { DbService } from "../../common/helper/db_service";
-import { Utility } from "../../common/helper/utility";
-import { CustomerModel } from "../../model/customer_model";
+import { DbService } from "../common/helper/db_service";
+import { Utility } from "../common/helper/utility";
+import { CustomerModel } from "../model/customer_model";
 
 class CustomerApi {
   private db = DbService.instance();

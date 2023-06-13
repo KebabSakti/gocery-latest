@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { ErrorHandler } from "../../../common/helper/failure";
-import { CartController } from "../../../controller/customer/cart_controller";
+import { CartController } from "../../../controller/cart_controller";
 import { CartModel } from "../../../model/cart_model";
 
 const router = express.Router();

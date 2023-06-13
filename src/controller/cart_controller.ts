@@ -1,6 +1,6 @@
-import { CartApi } from "../../api/customer/cart_api";
-import { ProductApi } from "../../api/customer/product_api";
-import { CartModel } from "../../model/cart_model";
+import { CartApi } from "../api/cart_api";
+import { ProductApi } from "../api/product_api";
+import { CartModel } from "../model/cart_model";
 
 class CartController {
   private cartApi = new CartApi();

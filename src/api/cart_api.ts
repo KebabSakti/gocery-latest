@@ -1,6 +1,6 @@
-import { DbService } from "../../common/helper/db_service";
-import { Utility } from "../../common/helper/utility";
-import { CartModel } from "../../model/cart_model";
+import { DbService } from "../common/helper/db_service";
+import { Utility } from "../common/helper/utility";
+import { CartModel } from "../model/cart_model";
 
 class CartApi {
   private db = DbService.instance();

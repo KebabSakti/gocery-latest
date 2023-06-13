@@ -1,5 +1,5 @@
-import { DbService } from "../../common/helper/db_service";
-import { ProductModel } from "../../model/product_model";
+import { DbService } from "../common/helper/db_service";
+import { ProductModel } from "../model/product_model";
 
 class ProductApi {
   private db = DbService.instance();

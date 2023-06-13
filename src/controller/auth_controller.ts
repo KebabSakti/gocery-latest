@@ -1,7 +1,7 @@
 import { BrcyptApi } from "../api/bcrypt_api";
-import { CourierApi } from "../api/courier/courier_api";
-import { CustomerApi } from "../api/customer/customer_api";
-import { FirebaseAuthApi } from "../api/customer/firebase_auth_api";
+import { CourierApi } from "../api/courier_api";
+import { CustomerApi } from "../api/customer_api";
+import { FirebaseAuthApi } from "../api/firebase_auth_api";
 import { JwtAuthApi } from "../api/jwt_auth_api";
 import {
   BadRequest,
