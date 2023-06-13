@@ -1,5 +1,5 @@
 interface FcmModel {
-  token: string;
+  tokens: string[];
   title: string;
   body: string;
   data?: Object;

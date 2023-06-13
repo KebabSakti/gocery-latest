@@ -8,7 +8,7 @@ const accountController = new CustomerAccountController();
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const customerId = req.app.locals.customer.id;
+    const customerId = req.app.locals.user.id;
     const customer = await accountController.show(customerId);
 
     const filteredCustomer: CustomerModel = {
@@ -28,7 +28,7 @@ router.get("/", async (req: Request, res: Response) => {
 router.put("/", async (req: Request, res: Response) => {
   try {
     const { name, email, phone, image, fcm } = req.body;
-    const customerId = req.app.locals.customer.id;
+    const customerId = req.app.locals.user.id;
 
     const updatedAccount = {
       id: customerId,

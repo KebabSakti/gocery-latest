@@ -8,7 +8,7 @@ const cartController = new CartController();
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const customerId = req.app.locals.customer.id;
+    const customerId = req.app.locals.user.id;
     const cart = await cartController.index(customerId);
 
     res.json(cart);
@@ -19,7 +19,7 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const customerId = req.app.locals.customer.id;
+    const customerId = req.app.locals.user.id;
     const { id, productId, qty } = req.body;
 
     const cartModel: CartModel = {

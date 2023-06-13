@@ -4,11 +4,8 @@ import { ChatModel } from "../../model/chat_model";
 class ChatApi {
   private db = DbService.instance();
 
-  async index(sessionId: string): Promise<ChatModel[]> {
-    const chats = await this.db<ChatModel>("chats").where(
-      "sessionId",
-      sessionId
-    );
+  async index(session: string): Promise<ChatModel[]> {
+    const chats = await this.db<ChatModel>("chats").where("session", session);
 
     return chats;
   }

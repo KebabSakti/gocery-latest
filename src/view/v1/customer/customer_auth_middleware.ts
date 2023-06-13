@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ErrorHandler, Unauthorized } from "../../../common/helper/failure";
-import { CustomerAuthController } from "../../../controller/customer/customer_auth_controller";
+import { AuthController } from "../../../controller/auth_controller";
 
-const authController = new CustomerAuthController();
+const authController = new AuthController();
 
 async function authMiddleware(req: Request, res: Response, next: NextFunction) {
   try {
@@ -14,7 +14,7 @@ async function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
     const token = bearerHeader.split(" ")[1];
     const customer = await authController.verify(token);
-    req.app.locals.customer = customer;
+    req.app.locals.user = customer;
 
     next();
   } catch (error: any) {

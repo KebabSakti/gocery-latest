@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import Joi from "joi";
 import { BadRequest, ErrorHandler } from "../../../common/helper/failure";
-import { CustomerAuthController } from "../../../controller/customer/customer_auth_controller";
+import { AuthController } from "../../../controller/auth_controller";
 
 const router = express.Router();
-const authController = new CustomerAuthController();
+const authController = new AuthController();
 
 router.post("/", async (req: Request, res: Response) => {
   try {
@@ -14,11 +14,11 @@ router.post("/", async (req: Request, res: Response) => {
     const { error } = schema.validate(option);
 
     if (error) {
-      throw new BadRequest("Auth token not valid");
+      throw new BadRequest("Auth token invalid");
     }
 
-    const auth = await authController.validate(option.token);
-    req.app.locals.customer = auth.customer;
+    const auth = await authController.validateCustomer(option.token);
+    req.app.locals.user = auth.jwtModel;
 
     res.json({ token: auth.token });
   } catch (error: any) {

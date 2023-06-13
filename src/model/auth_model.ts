@@ -1,8 +1,8 @@
-import { CustomerModel } from "./customer_model";
+import { JwtModel } from "./jwt_model";
 
 interface AuthModel {
   token?: string;
-  customer?: CustomerModel;
+  jwtModel?: JwtModel;
 }
 
 export { AuthModel };

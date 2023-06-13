@@ -7,14 +7,13 @@ import { DbService } from "./common/helper/db_service";
 import { FirebaseAdminService } from "./common/helper/firebase_service";
 import { SocketIoService } from "./common/helper/socket_io_service";
 import { Utility } from "./common/helper/utility";
-import { CourierAuthController } from "./controller/courier/courier_auth_controller";
-import { ChatMessageController } from "./controller/customer/chat_message_controller";
-import { ChatParticipantController } from "./controller/customer/chat_participant_controller";
-import { ChatRoomController } from "./controller/customer/chat_room_controller";
-import { CustomerAuthController } from "./controller/customer/customer_auth_controller";
+import { AuthController } from "./controller/auth_controller";
+import { ChatMemberController } from "./controller/chat_member_controller";
+import { ChatMessageController } from "./controller/chat_messages_controller";
+import { ChatRoomController } from "./controller/chat_room_controller";
 import { CartModel } from "./model/cart_model";
+import { ChatMemberModel } from "./model/chat_member_model";
 import { ChatMessageModel } from "./model/chat_message_model";
-import { ChatParticipantModel } from "./model/chat_participant_model";
 import { ChatRoomModel } from "./model/chat_room_model";
 import customerAccount from "./view/v1/customer/customer_account";
 import customerAuth from "./view/v1/customer/customer_auth";
@@ -38,54 +37,51 @@ app.use(express.urlencoded({ extended: true }));
 //websocket
 io.use(async (socket, next) => {
   try {
-    const customerAuthController = new CustomerAuthController();
-    const courierAuthController = new CourierAuthController();
-    const { token, level } = socket.handshake.auth;
+    const authController = new AuthController();
+    const token = socket.handshake.auth.token;
+    const user = await authController.verify(token);
 
-    if (level == "customer") {
-      await customerAuthController.verify(token);
-    }
-
-    if (level == "courier") {
-      await courierAuthController.verify(token);
-    }
+    socket.data.user = user;
 
     next();
   } catch (error) {
     next(error);
   }
-});
-
-io.on("connection", async (socket) => {
+}).on("connection", async (socket) => {
   try {
     const chatRoomController = new ChatRoomController();
-    const chatParticipantController = new ChatParticipantController();
+    const chatMemberController = new ChatMemberController();
     const chatMessageController = new ChatMessageController();
+    const { id, level } = socket.data.user;
 
-    socket.on("room:create", (chatRoomModel: ChatRoomModel) => {
-      chatRoomController.store({
+    socket.on("room:create", async (chatRoomModel: ChatRoomModel) => {
+      await chatRoomController.store({
         ...chatRoomModel,
         created: Utility.nowSqlTimestamp(),
         updated: Utility.nowSqlTimestamp(),
       });
     });
 
-    socket.on("room:join", (chatParticipantModel: ChatParticipantModel) => {
-      socket.join(chatParticipantModel.chatRoomId!);
+    socket.on("room:join", async (chatMemberModel: ChatMemberModel) => {
+      socket.join(chatMemberModel.roomId!);
 
-      chatParticipantController.store({
-        ...chatParticipantModel,
+      await chatMemberController.store({
+        ...chatMemberModel,
         id: Utility.uuid(),
+        memberId: id,
+        memberType: level,
         created: Utility.nowSqlTimestamp(),
         updated: Utility.nowSqlTimestamp(),
       });
     });
 
-    socket.on("chat", (chatMessageModel: ChatMessageModel) => {
-      io.to(chatMessageModel.chatRoomId!).emit("message", chatMessageModel);
+    socket.on("chat", async (chatMessageModel: ChatMessageModel) => {
+      io.to(chatMessageModel.roomId!).emit("message", chatMessageModel);
 
-      chatMessageController.store({
+      await chatMessageController.store({
         ...chatMessageModel,
+        id: Utility.uuid(),
+        userId: id,
         created: Utility.nowSqlTimestamp(),
         updated: Utility.nowSqlTimestamp(),
       });
@@ -182,7 +178,7 @@ app.get("/", async (req, res) => {
   res.json("SERVER UPPP!!");
 });
 
-//customer
+//rest api customer
 app.use("/api/v1/customer/app", customerAuthMiddleware);
 app.use("/api/v1/customer/auth", customerAuth);
 app.use("/api/v1/customer/app/accounts", customerAccount);

@@ -4,7 +4,7 @@ import { FcmModel } from "../model/fcm_model";
 class FcmApi {
   async send(fcmModel: FcmModel): Promise<void> {
     const payload = {
-      token: fcmModel.token,
+      tokens: fcmModel.tokens,
       notification: {
         title: fcmModel.title,
         body: fcmModel.body,
@@ -15,7 +15,7 @@ class FcmApi {
       payload["data"] = fcmModel.data;
     }
 
-    await admin.messaging().send(payload);
+    await admin.messaging().sendEachForMulticast(payload);
   }
 }
 
