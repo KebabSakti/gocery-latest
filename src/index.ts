@@ -20,6 +20,7 @@ import customerAuth from "./view/v1/customer/customer_auth";
 import customerAuthMiddleware from "./view/v1/customer/customer_auth_middleware";
 import customerCarts from "./view/v1/customer/customer_cart";
 import customerCategories from "./view/v1/customer/customer_category";
+import customerChats from "./view/v1/customer/customer_chat";
 
 const app = express();
 const server = http.createServer(app);
@@ -56,7 +57,7 @@ io.use(async (socket, next) => {
 
     socket.on("room:create", async (chatRoomModel: ChatRoomModel) => {
       await chatRoomController.store({
-        ...chatRoomModel,
+        id: chatRoomModel.id,
         created: Utility.nowSqlTimestamp(),
         updated: Utility.nowSqlTimestamp(),
       });
@@ -76,7 +77,7 @@ io.use(async (socket, next) => {
     });
 
     socket.on("chat", async (chatMessageModel: ChatMessageModel) => {
-      io.to(chatMessageModel.roomId!).emit("message", chatMessageModel);
+      socket.to(chatMessageModel.roomId!).emit("message", chatMessageModel);
 
       await chatMessageController.store({
         ...chatMessageModel,
@@ -184,6 +185,7 @@ app.use("/api/v1/customer/auth", customerAuth);
 app.use("/api/v1/customer/app/accounts", customerAccount);
 app.use("/api/v1/customer/app/categories", customerCategories);
 app.use("/api/v1/customer/app/carts", customerCarts);
+app.use("/api/v1/customer/app/chats", customerChats);
 
 //route not found 404
 app.use("*", (_, res) => res.status(404).json("Route path not found"));

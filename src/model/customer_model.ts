@@ -5,7 +5,7 @@ interface CustomerModel {
   phone?: string;
   image?: string;
   fcm?: string;
-  point?: Number;
+  point?: number;
   active?: boolean;
   created?: string;
   updated?: string;

@@ -11,6 +11,12 @@ class ChatMemberController {
   private customerApi = new CustomerApi();
   private courierApi = new CourierApi();
 
+  async index(roomId: string): Promise<ChatMemberModel[]> {
+    const chatMembers = await this.chatMemberApi.index(roomId);
+
+    return chatMembers;
+  }
+
   async show(chatMemberId: string): Promise<ChatMemberModel | undefined> {
     const chatMember = await this.chatMemberApi.show(chatMemberId);
 

@@ -6,12 +6,17 @@ class ChatMessageApi {
 
   async index(roomId: string): Promise<ChatMessageModel[]> {
     const chatMessages = await this.db<ChatMessageModel>("chat_messages")
-      .select("chat_messages.*")
+      .select(
+        "chat_messages.*",
+        "chat_messages.id as chatMessageId",
+        "chat_members.*",
+        "chat_members.id as chatMemberId"
+      )
       .join(
         "chat_members",
         "chat_messages.userId",
         "=",
-        "chat_members.id"
+        "chat_members.memberId"
       )
       .where("chat_members.roomId", roomId);
 

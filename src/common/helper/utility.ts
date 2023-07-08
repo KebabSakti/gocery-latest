@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
+import { PaginateModel } from "../../model/paginate_model";
 
 class Utility {
   static uuid(): string {
@@ -17,6 +18,18 @@ class Utility {
     const formatted = Utility.toSqlTimestamp(now);
 
     return formatted;
+  }
+
+  static paginate(
+    current: number = 0,
+    limit: number = 10
+  ): PaginateModel | undefined {
+    if (current && limit) {
+      let offset = current > limit ? 0 : current;
+      const paginateModel = { current: offset, limit: limit };
+
+      return paginateModel;
+    }
   }
 }
 

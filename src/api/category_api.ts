@@ -5,12 +5,7 @@ class CategoryApi {
   private db = DbService.instance();
 
   async index(): Promise<CategoryModel[]> {
-    const categories = await this.db<CategoryModel>("categories").select(
-      "id",
-      "name",
-      "image",
-      "description"
-    );
+    const categories = await this.db<CategoryModel>("categories");
 
     return categories;
   }
