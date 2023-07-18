@@ -1,7 +1,7 @@
-import { DbService } from "../common/helper/db_service";
-import { BannerModel } from "../model/banner_model";
+import { DbService } from "../../common/helper/db_service";
+import { BannerModel } from "../../model/banner_model";
 
-class BannerApi {
+class CustomerBannerApi {
   private db = DbService.instance();
 
   async index(): Promise<BannerModel[]> {
@@ -11,4 +11,4 @@ class BannerApi {
   }
 }
 
-export { BannerApi };
+export { CustomerBannerApi };

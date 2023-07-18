@@ -1,16 +1,16 @@
-import { BrcyptApi } from "../api/bcrypt_api";
-import { CourierApi } from "../api/courier_api";
-import { CustomerApi } from "../api/customer_api";
-import { FirebaseAuthApi } from "../api/firebase_auth_api";
-import { JwtAuthApi } from "../api/jwt_auth_api";
+import { BrcyptApi } from "../../api/core/bcrypt_api";
+import { CourierApi } from "../../api/courier/courier_api";
+import { CustomerApi } from "../../api/customer/customer_api";
+import { FirebaseAuthApi } from "../../api/core/firebase_auth_api";
+import { JwtAuthApi } from "../../api/core/jwt_auth_api";
 import {
   BadRequest,
   ResourceNotFound,
   Unauthorized,
-} from "../common/helper/failure";
-import { AuthModel } from "../model/auth_model";
-import { CustomerModel } from "../model/customer_model";
-import { JwtModel } from "../model/jwt_model";
+} from "../../common/helper/failure";
+import { AuthModel } from "../../model/auth_model";
+import { CustomerModel } from "../../model/customer_model";
+import { JwtModel } from "../../model/jwt_model";
 
 class AuthController {
   private customerApi = new CustomerApi();

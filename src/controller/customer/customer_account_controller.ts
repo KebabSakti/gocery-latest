@@ -1,6 +1,6 @@
-import { CustomerApi } from "../api/customer_api";
-import { ResourceNotFound } from "../common/helper/failure";
-import { CustomerModel } from "../model/customer_model";
+import { CustomerApi } from "../../api/customer/customer_api";
+import { ResourceNotFound } from "../../common/helper/failure";
+import { CustomerModel } from "../../model/customer_model";
 
 class CustomerAccountController {
   private customerApi = new CustomerApi();

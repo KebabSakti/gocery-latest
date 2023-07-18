@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { ErrorHandler } from "../../../common/helper/failure";
 import { Utility } from "../../../common/helper/utility";
-import { ChatRoomController } from "../../../controller/chat_room_controller";
+import { ChatRoomController } from "../../../controller/core/chat_room_controller";
 import { ChatMemberModel } from "../../../model/chat_member_model";
 import { ChatMessageModel } from "../../../model/chat_message_model";
 import { ChatRoomModel } from "../../../model/chat_room_model";

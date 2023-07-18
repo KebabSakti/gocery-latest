@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import { ErrorHandler } from "../../../common/helper/failure";
-import { CartController } from "../../../controller/cart_controller";
+import { CustomerCartController } from "../../../controller/customer/customer_cart_controller";
 import { CartModel } from "../../../model/cart_model";
 
 const router = express.Router();
-const cartController = new CartController();
+const cartController = new CustomerCartController();
 
 router.get("/", async (req: Request, res: Response) => {
   try {

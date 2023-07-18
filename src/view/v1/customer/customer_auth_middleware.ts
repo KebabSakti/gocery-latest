@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ErrorHandler, Unauthorized } from "../../../common/helper/failure";
-import { AuthController } from "../../../controller/auth_controller";
+import { AuthController } from "../../../controller/core/auth_controller";
 
 const authController = new AuthController();
 

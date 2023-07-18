@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import { FcmModel } from "../model/fcm_model";
+import { FcmModel } from "../../model/fcm_model";
 
 class FcmApi {
   async send(fcmModel: FcmModel): Promise<void> {

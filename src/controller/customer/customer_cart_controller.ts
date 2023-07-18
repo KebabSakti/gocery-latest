@@ -1,10 +1,10 @@
-import { CartApi } from "../api/cart_api";
-import { ProductApi } from "../api/product_api";
-import { CartModel } from "../model/cart_model";
+import { CustomerCartApi } from "../../api/customer/customer_cart_api";
+import { CustomerProductApi } from "../../api/customer/customer_product_api";
+import { CartModel } from "../../model/cart_model";
 
-class CartController {
-  private cartApi = new CartApi();
-  private productApi = new ProductApi();
+class CustomerCartController {
+  private cartApi = new CustomerCartApi();
+  private productApi = new CustomerProductApi();
 
   async index(customerId: string): Promise<CartModel[]> {
     const cart = await this.cartApi.index(customerId);
@@ -28,4 +28,4 @@ class CartController {
   }
 }
 
-export { CartController };
+export { CustomerCartController };

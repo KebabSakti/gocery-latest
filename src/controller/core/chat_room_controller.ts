@@ -1,8 +1,8 @@
-import { ChatMemberApi } from "../api/chat_member_api";
-import { ChatMessageApi } from "../api/chat_message_api";
-import { ChatRoomApi } from "../api/chat_room_api";
-import { ChatRoomModel } from "../model/chat_room_model";
-import { OptionModel } from "../model/option_model";
+import { ChatMemberApi } from "../../api/core/chat_member_api";
+import { ChatMessageApi } from "../../api/core/chat_message_api";
+import { ChatRoomApi } from "../../api/core/chat_room_api";
+import { ChatRoomModel } from "../../model/chat_room_model";
+import { OptionModel } from "../../model/option_model";
 
 class ChatRoomController {
   private chatRoomApi = new ChatRoomApi();

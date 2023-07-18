@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import { CustomerModel } from "../model/customer_model";
+import { CustomerModel } from "../../model/customer_model";
 
 class FirebaseAuthApi {
   async verify(token: string): Promise<CustomerModel> {

@@ -1,21 +1,19 @@
 import express, { Request, Response } from "express";
 import { ErrorHandler } from "../../../common/helper/failure";
-import { CustomerCategoryController } from "../../../controller/customer/customer_category_controller";
-import { CategoryModel } from "../../../model/category_model";
+import { CustomerBannerController } from "../../../controller/customer/customer_banner_controller";
+import { BannerModel } from "../../../model/banner_model";
 
 const router = express.Router();
-const categoryController = new CustomerCategoryController();
+const customerBannerController = new CustomerBannerController();
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    const categories = await categoryController.index();
+    const banners = await customerBannerController.index();
 
-    const filteredFields: CategoryModel[] = categories.map((e) => {
+    const filteredFields: BannerModel[] = banners.map((e) => {
       return {
         id: e.id,
-        name: e.name,
         image: e.image,
-        description: e.description,
       };
     });
 

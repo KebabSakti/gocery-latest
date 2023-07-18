@@ -1,6 +1,6 @@
-import { DbService } from "../common/helper/db_service";
-import { ChatRoomModel } from "../model/chat_room_model";
-import { OptionModel } from "../model/option_model";
+import { DbService } from "../../common/helper/db_service";
+import { ChatRoomModel } from "../../model/chat_room_model";
+import { OptionModel } from "../../model/option_model";
 
 class ChatRoomApi {
   private db = DbService.instance();

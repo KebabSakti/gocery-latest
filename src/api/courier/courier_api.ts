@@ -1,5 +1,5 @@
-import { DbService } from "../common/helper/db_service";
-import { CourierModel } from "../model/courier_model";
+import { DbService } from "../../common/helper/db_service";
+import { CourierModel } from "../../model/courier_model";
 
 class CourierApi {
   private db = DbService.instance();

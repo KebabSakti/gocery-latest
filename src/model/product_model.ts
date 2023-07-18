@@ -1,3 +1,5 @@
+import { PaginateModel } from "./paginate_model";
+
 interface ProductModel {
   id?: string;
   categoryId?: string;

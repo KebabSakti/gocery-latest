@@ -1,7 +1,7 @@
-import { ChatMemberApi } from "../api/chat_member_api";
-import { ChatMessageApi } from "../api/chat_message_api";
-import { FcmApi } from "../api/fcm_api";
-import { ChatMessageModel } from "../model/chat_message_model";
+import { ChatMemberApi } from "../../api/core/chat_member_api";
+import { ChatMessageApi } from "../../api/core/chat_message_api";
+import { FcmApi } from "../../api/core/fcm_api";
+import { ChatMessageModel } from "../../model/chat_message_model";
 
 class ChatMessageController {
   private chatMessageApi = new ChatMessageApi();

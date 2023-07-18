@@ -1,5 +1,5 @@
-import { DbService } from "../common/helper/db_service";
-import { ChatMessageModel } from "../model/chat_message_model";
+import { DbService } from "../../common/helper/db_service";
+import { ChatMessageModel } from "../../model/chat_message_model";
 
 class ChatMessageApi {
   private db = DbService.instance();

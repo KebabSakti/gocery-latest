@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import Joi from "joi";
 import { BadRequest, ErrorHandler } from "../../../common/helper/failure";
-import { AuthController } from "../../../controller/auth_controller";
+import { AuthController } from "../../../controller/core/auth_controller";
 
 const router = express.Router();
 const authController = new AuthController();

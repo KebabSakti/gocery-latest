@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { JwtModel } from "../model/jwt_model";
+import { JwtModel } from "../../model/jwt_model";
 
 class JwtAuthApi {
   sign(jwtModel: JwtModel): string {

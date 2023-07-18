@@ -31,6 +31,34 @@ class Utility {
       return paginateModel;
     }
   }
+
+  static parseQuery(query: Map<string, string>): Map<string, string> {
+    let buildQuery = new Map<string, any>();
+
+    if (query.has("paginate")) {
+      const current =
+        query["paginate"]["current"] > query["paginate"]["limit"]
+          ? 0
+          : query["paginate"]["current"];
+
+      buildQuery.set("paginate", {
+        current: current,
+        limit: query["paginate"]["limit"],
+      });
+    }
+
+    if (query.has("filter")) {
+      buildQuery.set("filter", query["filter"]);
+    }
+
+    if (query.has("sort")) {
+      buildQuery.set("sort", {
+        field: query["sort"]["field"],
+      });
+    }
+
+    return buildQuery;
+  }
 }
 
 export { Utility };

@@ -1,10 +1,10 @@
-import { ChatMemberApi } from "../api/chat_member_api";
-import { CourierApi } from "../api/courier_api";
-import { CustomerApi } from "../api/customer_api";
-import { ResourceNotFound } from "../common/helper/failure";
-import { ChatMemberModel } from "../model/chat_member_model";
-import { CourierModel } from "../model/courier_model";
-import { CustomerModel } from "../model/customer_model";
+import { ChatMemberApi } from "../../api/core/chat_member_api";
+import { CourierApi } from "../../api/courier/courier_api";
+import { CustomerApi } from "../../api/customer/customer_api";
+import { ResourceNotFound } from "../../common/helper/failure";
+import { ChatMemberModel } from "../../model/chat_member_model";
+import { CourierModel } from "../../model/courier_model";
+import { CustomerModel } from "../../model/customer_model";
 
 class ChatMemberController {
   private chatMemberApi = new ChatMemberApi();
